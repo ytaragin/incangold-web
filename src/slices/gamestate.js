@@ -2,9 +2,17 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 
+export const LoadingEnum  = {
+   NOTLOADED : "notloaded",
+   LOADING : 'loading',
+   LOADED : 'loaded',
+   FAILED : 'failed' 
+};
+
 export const initialState = {
     game: {},
     playedCards: [],
+    status: LoadingEnum.NOTLOADED,
 }
 
 export const fetchGameDetails = createAsyncThunk('game/fetchGame', async (gameid) => {
@@ -19,7 +27,7 @@ export const fetchGameDetails = createAsyncThunk('game/fetchGame', async (gameid
     const response = await api.get(`/game/${gameid}`);
     console.log(response);
     
-    return response.data.games;
+    return response.data.game;
 })
 
 
@@ -38,16 +46,15 @@ const gameStateSlice = createSlice({
     },
     extraReducers: {
         [fetchGameDetails.pending]: (state, action) => {
-          state.status = 'loading'
+          state.status = LoadingEnum.LOADING
         },
         [fetchGameDetails.fulfilled]: (state, action) => {
-          state.status = 'succeeded'
-          // Add any fetched posts to the array
+          state.status = LoadingEnum.LOADED
           state.game = action.payload;
         },
         [fetchGameDetails.rejected]: (state, action) => {
-          state.status = 'failed'
-          state.error = action.error.message
+          state.status = LoadingEnum.FAILED;
+          state.error = action.error.message;
         }
       }
 });

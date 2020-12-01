@@ -1,16 +1,28 @@
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import { fetchGames, gameListSelector, gamesList} from '../slices/GameListSlice';
-import GameOverview from './GameOverview';
+import { Link } from 'react-router-dom'
+import {fetchGameDetails } from '../slices/gamestate';
 
 
-export function GameList () {
+export const GameListItem = ({ game }) => {
+    const dispatch = useDispatch()
+    return (
+      <li key={game.gameID}>
+          <Link to={`/game/${game.gameID}`} onClick={() => dispatch(fetchGameDetails(game.gameID))}>
+             Game ID: {game.gameID} Create Time: {game.statusTime}
+            </Link>
+      </li>
+    );
+  };
+
+export default function GameList () {
 
     const dispatch = useDispatch();
     const gamesState = useSelector(gameListSelector);
 
     const listItems = gamesState.games.map((game) =>
-        <GameOverview game={game}></GameOverview>
+        <GameListItem game={game}></GameListItem>
     );
     console.log(fetchGames);
     console.log(gamesList);
@@ -36,7 +48,6 @@ export function GameList () {
 
 }
 
-export default GameList
 
 
 /*

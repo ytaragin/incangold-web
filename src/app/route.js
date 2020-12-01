@@ -1,16 +1,14 @@
 import React from 'react'
 import { Route, Switch, Link } from 'react-router-dom'
-import Board from '../Game/Board'
-import GameState from '../Game/GameState'
+import GameList from '../Game/GameList'
+import GameLoadingState from '../Game/GameLoadingState'
 
 const routes = (
   <div>
-    Hello Routes  
-    <Link to="/">Home</Link>
-    <Link to="/game">Game</Link>
+    <Link to="/">Game List</Link>
     <Switch>
-      <Route exact path="/" component={Board} />
-      <Route path="/game" component={GameState} />
+      <Route exact path="/" component={GameList} />
+      <Route path="/game/:gameId" component={GameLoadingState} />
     </Switch>
   </div>
 )
