@@ -1,13 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-
-
-export const LoadingEnum  = {
-   NOTLOADED : "notloaded",
-   LOADING : 'loading',
-   LOADED : 'loaded',
-   FAILED : 'failed' 
-};
+import { LoadingEnum } from './CommonDefs'
 
 export const initialState = {
     game: {},

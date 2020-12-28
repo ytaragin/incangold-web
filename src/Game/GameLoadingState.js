@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from 'react-redux';
-import {gameStateSelector, LoadingEnum } from '../slices/gamestate';
+import {gameStateSelector } from '../slices/gamestate';
+import {LoadingEnum } from '../slices/CommonDefs'
+import {fetchGameDetails } from '../slices/gamestate';
+
 import Board from './Board';
 
 function ErrorLoading() {
@@ -59,14 +62,14 @@ function GameLoadingState({match}) {
     const dispatch = useDispatch();
     const gameState = useSelector(gameStateSelector);
     console.log(gameState);
-/*
+
     useEffect(() => {
         if (gameState.status === LoadingEnum.NOTLOADED) {
           dispatch(fetchGameDetails(match.params.gameId));
         }
       });
     
-*/
+
 
 //    console.log(p);
     return (
